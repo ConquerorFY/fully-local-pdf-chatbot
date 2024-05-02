@@ -22,7 +22,7 @@ import {
   HumanMessage,
 } from "@langchain/core/messages";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { OllamaEmbeddings } from "langchain/embeddings/ollama";
+// import { OllamaEmbeddings } from "langchain/embeddings/ollama";
 import type { BaseChatModel } from "@langchain/core/language_models/chat_models";
 import type { LanguageModelLike } from "@langchain/core/language_models/base";
 
@@ -32,17 +32,17 @@ import { Client } from "langsmith";
 import { ChatOllama } from "@langchain/community/chat_models/ollama";
 import { ChatWebLLM } from "./lib/chat_models/webllm";
 
-// Issue: https://github.com/jacoblee93/fully-local-pdf-chatbot/issues/3
-// const embeddings = new HuggingFaceTransformersEmbeddings({
-//   modelName: "Xenova/all-MiniLM-L6-v2",
-// // Can use "nomic-ai/nomic-embed-text-v1" for more powerful but slower embeddings
-// // modelName: "nomic-ai/nomic-embed-text-v1",
-// });
-
-const embeddings = new OllamaEmbeddings({
-  model: "mistral",
-  baseUrl: "http://localhost:11435",
+const embeddings = new HuggingFaceTransformersEmbeddings({
+  modelName: "Xenova/all-MiniLM-L6-v2",
+// Can use "nomic-ai/nomic-embed-text-v1" for more powerful but slower embeddings
+// modelName: "nomic-ai/nomic-embed-text-v1",
 });
+
+// Fix for Issue: https://github.com/jacoblee93/fully-local-pdf-chatbot/issues/3
+// const embeddings = new OllamaEmbeddings({
+//   model: "mistral",
+//   baseUrl: "http://localhost:11435",
+// });
 
 const voyClient = new VoyClient();
 const vectorstore = new VoyVectorStore(voyClient, embeddings);

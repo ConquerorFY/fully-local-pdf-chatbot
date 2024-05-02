@@ -7,6 +7,7 @@ import { CallbackManagerForLLMRun } from "@langchain/core/callbacks/manager";
 import { BaseMessage, AIMessageChunk } from "@langchain/core/messages";
 import { ChatGenerationChunk } from "@langchain/core/outputs";
 import {
+  // @ts-ignore
   ChatModule,
   type ChatCompletionMessageParam,
   type ModelRecord,
@@ -75,6 +76,7 @@ export class ChatWebLLM extends SimpleChatModel<WebLLMCallOptions> {
     if (progressCallback !== undefined) {
       this._chatModule.setInitProgressCallback(progressCallback);
     }
+    // @ts-ignore
     await this._chatModule.reload(this.modelRecord.local_id, undefined, {
       model_list: [this.modelRecord],
     });
