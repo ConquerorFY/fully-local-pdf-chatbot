@@ -18,9 +18,16 @@ import { RunnableSequence } from "langchain/schema/runnable";
 import { StringOutputParser } from "langchain/schema/output_parser";
 import { AIMessage, BaseMessage, HumanMessage } from "langchain/schema";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { OllamaEmbeddings } from "langchain/embeddings/ollama";
 
-const embeddings = new HuggingFaceTransformersEmbeddings({
-  modelName: "Xenova/all-MiniLM-L6-v2",
+// Issue: https://github.com/jacoblee93/fully-local-pdf-chatbot/issues/3
+// const embeddings = new HuggingFaceTransformersEmbeddings({
+//   modelName: "Xenova/all-MiniLM-L6-v2",
+// });
+
+const embeddings = new OllamaEmbeddings({
+  model: "mistral",
+  baseUrl: "http://localhost:11435",
 });
 
 const voyClient = new VoyClient();
